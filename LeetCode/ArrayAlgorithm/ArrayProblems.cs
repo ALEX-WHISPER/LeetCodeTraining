@@ -398,7 +398,7 @@ namespace LeetCode.ArrayAlgorithm {
         }
 
         /// <summary>
-        /// Given a flowerbed (represented as an array containing 0 and 1, where 0 means empty and 1 means not empty), and a number n, return if n new flowers can be planted in it without violating the no-adjacent-flowers rule.
+        /// https://leetcode.com/problems/can-place-flowers/description/
         /// </summary>
         /// <param name="flowerbed"></param>
         /// <param name="n"></param>
@@ -445,7 +445,7 @@ namespace LeetCode.ArrayAlgorithm {
         }
 
         /// <summary>
-        /// Given an integer array, find three numbers whose product is maximum and output the maximum product.
+        /// https://leetcode.com/problems/maximum-product-of-three-numbers/description/
         /// </summary>
         /// <param name="nums"></param>
         /// <returns></returns>
@@ -483,5 +483,374 @@ namespace LeetCode.ArrayAlgorithm {
             return Math.Max(max1*max2*max3, max1*min1*min2);
             #endregion
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="A"></param>
+        /// <returns></returns>
+        public static int[][] Transpose(int[][] A) {
+            if (A.Length < 1) {
+                return A;
+            }
+
+            int[][] res = new int[A[0].Length][];
+            for (int i = 0; i < res.Length; i++) {
+                res[i] = new int[A.Length];
+            }
+
+            for (int i = 0; i < res.Length; i++) {
+                for (int j = 0; j < res[i].Length; j++) {
+                    res[i][j] = A[j][i];
+                }
+            }
+
+            for (int i = 0; i < res.Length; i++) {
+                for (int j = 0; j < res[i].Length; j++) {
+                    Console.Write(res[i][j] + " ");
+                }
+                Console.WriteLine("");
+            }
+            return res;
+        }
+
+        /// <summary>
+        /// https://leetcode.com/problems/maximum-average-subarray-i/description/
+        /// </summary>
+        /// <param name="nums"></param>
+        /// <param name="k"></param>
+        /// <returns></returns>
+        public static double FindMaxAverage(int[] nums, int k) {
+            int sum = 0;
+
+            //  add up the first 4 elements
+            for (int i = 0; i < k; i++) {
+                sum += nums[i];
+            }
+
+            //  sliding window, move forward if the latter one is bigger
+            int max = sum;
+            for (int i = k; i < nums.Length; i++) {
+                sum -= nums[i - k];
+                sum += nums[i];
+                max = Math.Max(max, sum);
+            }
+            return max / 1.0 / k;
+        }
+
+        /// <summary>
+        /// https://leetcode.com/problems/image-smoother/description/
+        /// </summary>
+        /// <param name="M"></param>
+        /// <returns></returns>
+        public static int[,] ImageSmoother(int[,] M) {
+            int row = M.GetLength(0), col = M.GetLength(1);
+            int[,] res = new int[row, col];
+
+            for (int i = 0; i < row; i++) {
+                for (int j = 0; j < col; j++) {
+                    res[i, j] = Utils.Smooth(M, i, j);
+                }
+            }
+            
+            return res;
+        }
+
+        /// <summary>
+        /// https://leetcode.com/problems/longest-continuous-increasing-subsequence/description/
+        /// </summary>
+        /// <param name="nums"></param>
+        /// <returns></returns>
+        public static int FindLengthOfLCIS(int[] nums) {
+            if (nums.Length < 1)
+                return 0;
+            int res = 1, len = 1;
+            for (int i = 0; i < nums.Length - 1; i++) {
+                len = nums[i + 1] > nums[i] ? len + 1 : 1;
+                res = Math.Max(res, len);
+            }
+            return res;
+        }
+
+        /// <summary>
+        /// https://leetcode.com/problems/max-area-of-island/description/
+        /// </summary>
+        /// <param name="grid"></param>
+        /// <returns></returns>
+        public static int MaxAreaOfIsland(int[,] grid) {
+            int area, max = 0;
+            for (int i = 0; i < grid.GetLength(0); i++) {
+                for (int j = 0; j < grid.GetLength(1); j++) {
+                    area = Utils.AreaOfIsland(grid, i, j);  //  dfs(depth-first-search)
+                    max = Math.Max(max, area);
+                }
+            }
+            return max;
+        }
+
+        /// <summary>
+        /// https://leetcode.com/problems/degree-of-an-array/description/
+        /// </summary>
+        /// <param name="nums"></param>
+        /// <returns></returns>
+        public static int FindShortestSubArray(int[] nums) {
+            int degree = 1, len = nums.Length;
+            
+            Dictionary<int, int[]> _dic = new Dictionary<int, int[]>();
+            for (int i = 0; i < nums.Length; i++) {
+                int num = nums[i];
+                if (_dic.ContainsKey(num)) {
+                    _dic[num][0]++;
+                    _dic[num][2] = i;
+                } else {
+                    _dic.Add(num, new int[] { 1, i, i });   //  first: elem degree, second: the first index, thrid: the last index
+                }
+                degree = Math.Max(degree, _dic[num][0]);    //  degree of the whole array
+            }
+
+            foreach (var key in _dic.Keys) {
+                int[] val = _dic[key];
+                if (val[0] == degree) {
+                    len = Math.Min(val[2] - val[1] + 1, len);
+                }
+            }
+            
+            return len;
+        }
+
+        /// <summary>
+        /// https://leetcode.com/problems/1-bit-and-2-bit-characters/description/
+        /// </summary>
+        /// <param name="bits"></param>
+        /// <returns></returns>
+        public static bool IsOneBitCharacter(int[] bits) {
+            int p = 0;
+            while (p < bits.Length - 1) {
+                if (bits[p] == 0) p += 1;
+                else p += 2;
+            }
+            return p == bits.Length - 1;
+        }
+
+        /// <summary>
+        /// https://leetcode.com/problems/find-pivot-index/description/
+        /// </summary>
+        /// <param name="nums"></param>
+        /// <returns></returns>
+        public static int PivotIndex(int[] nums) {
+            int sum = 0, half = 0;
+            for (int i = 0; i < nums.Length; i++) {
+                sum += nums[i];
+            }
+
+            for (int i = 0; i < nums.Length; i++) {
+                if (sum == half * 2 + nums[i])
+                    return i;
+                half += nums[i];
+            }
+            return -1;
+        }
+
+        /// <summary>
+        /// https://leetcode.com/problems/largest-number-at-least-twice-of-others/description/
+        /// </summary>
+        /// <param name="nums"></param>
+        /// <returns></returns>
+        public static int DominantIndex(int[] nums) {
+            int max1 = int.MinValue, max2 = int.MinValue;
+            int index = 0;
+            for (int i = 0; i < nums.Length; i++) {
+                if (nums[i] > max1) {
+                    max2 = max1;
+                    max1 = nums[i];
+                    index = i;
+                } else if (nums[i] > max2)
+                    max2 = nums[i];
+            }
+            //Console.WriteLine("max1: {0}, max2: {1}", max1, max2);
+            return max1 >= max2 * 2 ? index : -1;
+        }
+
+        /// <summary>
+        /// https://leetcode.com/problems/toeplitz-matrix/description/
+        /// </summary>
+        /// <param name="matrix"></param>
+        /// <returns></returns>
+        public static bool IsToeplitzMatrix(int[,] matrix) {
+            int row = matrix.GetLength(0), col = matrix.GetLength(1);
+            for (int i = 0; i < row; i++) {
+                if (!Utils.IsValid(i + 1, row)) continue;
+
+                for (int j = 0; j < col; j++) {
+                    if (!Utils.IsValid(j + 1, col))  continue;
+
+                    if (matrix[i, j] != matrix[i + 1, j + 1])  return false;
+                }
+            }
+            return true;
+        }
+
+        /// <summary>
+        /// https://leetcode.com/problems/positions-of-large-groups/description/
+        /// </summary>
+        /// <param name="S"></param>
+        /// <returns></returns>
+        public static IList<IList<int>> LargeGroupPositions(string S) {
+            string str = string.Concat(S, "A");
+            char curChar = S[0];
+            int count = 0;
+            IList<IList<int>> res = new List<IList<int>>();
+
+            for (int i = 0; i < str.Length; i++) {
+                char c = str[i];
+                if (c != curChar) {
+                    curChar = c;
+                    if (count >= 3) res.Add(new List<int> { i-count, i-1 });
+                    count = 1;
+                } else {
+                    count++;
+                }
+            }
+            
+            return res;
+        }
+
+        /// <summary>
+        /// https://leetcode.com/problems/flipping-an-image/description/
+        /// </summary>
+        /// <param name="A"></param>
+        /// <returns></returns>
+        public static int[][] FlipAndInvertImage(int[][] A) {
+            int row = A.Length, col = A[0].Length;
+            for (int i = 0; i < row; i++) {
+                for (int j = col - 1; j >= col / 2; j--) {
+                    int left = col - 1 - j, right = j;
+                    if (A[i][left] == A[i][right])
+                        continue;
+                    int temp = A[i][left];
+                    A[i][left] = A[i][right];
+                    A[i][right] = temp;
+                }
+            }
+
+            for (int i = 0; i < row; i++) {
+                for (int j = 0; j < col; j++) {
+                    A[i][j] = A[i][j] == 0 ? 1 : 0;
+                }
+            }
+            
+            return A;
+        }
+
+        /// <summary>
+        /// https://leetcode.com/problems/fair-candy-swap/description/
+        /// </summary>
+        /// <param name="A"></param>
+        /// <param name="B"></param>
+        /// <returns></returns>
+        public static int[] FairCandySwap(int[] A, int[] B) {
+            int sumA = 0, sumB = 0, average = 0, diff = 0;
+            foreach (int a in A) { sumA += a; }
+            foreach (int b in B) { sumB += b; }
+            average = (sumA + sumB) / 2;
+            diff = sumA - average;
+
+            for (int i = 0; i < A.Length; i++) {
+                for (int j = 0; j < B.Length; j++) {
+                    if (A[i] - B[j] == diff) {
+                        return new int[] { A[i], B[j] };
+                    }
+                }
+            }
+
+            return null;
+        }
+
+        #region the last part
+        /// <summary>
+        /// https://leetcode.com/problems/min-cost-climbing-stairs/description/
+        /// </summary>
+        /// <param name="cost"></param>
+        /// <returns></returns>
+        public static int MinCostClimbingStairs(int[] cost) {
+            int n = cost.Length;
+            int[] dp = new int[n];
+            dp[0] = cost[0]; dp[1] = cost[1];
+            for (int i = 2; i < n; i++) {
+                dp[i] = cost[i] + Math.Min(dp[i-1], dp[i-2]);
+            }
+            return Math.Min(dp[n-1], dp[n-2]);
+        }
+
+        /// <summary>
+        /// https://leetcode.com/problems/third-maximum-number/description/
+        /// </summary>
+        /// <param name="nums"></param>
+        /// <returns></returns>
+        public static int ThirdMax(int[] nums) {
+            int? max1 = null, max2 = null, max3 = null;
+            for (int i = 0; i < nums.Length; i++) {
+                int num = nums[i];
+                if (num.Equals(max1) || num.Equals(max2) || num.Equals(max3))
+                    continue;
+                if (max1 == null || num > max1) {
+                    max3 = max2; max2 = max1; max1 = num;
+                } else if (max2 == null || num > max2) {
+                    max3 = max2; max2 = num;
+                } else if (max3 == null || num > max3) {
+                    max3 = num;
+                }
+            }
+            return max3 == null ? (int)max1 : (int)max3;
+        }
+
+        /// <summary>
+        /// https://leetcode.com/problems/non-decreasing-array/description/
+        /// </summary>
+        /// <param name="nums"></param>
+        /// <returns></returns>
+        public static bool CheckPossibility(int[] nums) {
+            #region clumzy
+            //int pa = 0, pb = nums.Length - 1;
+            //while (pa < nums.Length - 1) {
+            //    if (nums[pa + 1] >= nums[pa]) pa++;
+            //    else break;
+            //}
+
+            //while (pb > 0) {
+            //    if (nums[pb - 1] <= nums[pb]) pb--;
+            //    else break;
+            //}
+
+            ////  completely ascending
+            //if (pa == nums.Length - 1 && pb == 0) {
+            //    return true;
+            //}
+
+            //else {
+            //    if ((pb - pa) > 1) return false;
+            //    if (pa > 0 && pb < nums.Length - 1)
+            //        return nums[pa - 1] <= nums[pb] || nums[pa] <= nums[pb+1];
+            //    return true;
+            //}
+            #endregion
+            #region concise
+            int count = 0;
+            for (int i = 1; i < nums.Length; i++) {
+                if (nums[i-1] > nums[i]) {
+                    count++;
+                    if (i == 1) nums[i - 1] = nums[i];
+                    else {
+                        if (nums[i - 2] <= nums[i])
+                            nums[i - 1] = nums[i];
+                        else
+                            nums[i] = nums[i - 1]; 
+                    }
+                }
+            }
+            return count <= 1;
+            #endregion
+        }
+        #endregion
     }
 }

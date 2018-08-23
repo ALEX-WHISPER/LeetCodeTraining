@@ -88,7 +88,72 @@ namespace LeetCode {
             //}
 
             //var res = ArrayProblems.CanPlaceFlowers(new int[] { 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 1, 0, 0, 0, 1, 0 }, 4);
-            var res = ArrayProblems.MaximumProduct(new int[] { -4,-3,-2,1,66 });
+            //var res = ArrayProblems.MaximumProduct(new int[] { -4,-3,-2,1,66 });
+            //Console.WriteLine("res: " + res);
+
+            //ArrayProblems.Transpose(new int[][] { new int[] { 1,2,3 }, new int[] { 4,5,6 } });
+
+            //var res = ArrayProblems.FindMaxAverage(new int[] { 1,12,-5,-6,50,3 }, 4);
+            //Console.WriteLine("res: " + res);
+
+            //var res = ArrayProblems.ImageSmoother(new int[,] {
+            //    { 1,1,1 },
+            //    { 1,0,1 },
+            //    { 1,1,1 }
+            //});
+            //for (int i = 0; i < res.GetLength(0); i++) {
+            //    for (int j = 0; j < res.GetLength(1); j++) {
+            //        Console.Write(res[i, j] + " ");
+            //    }
+            //    Console.WriteLine("");
+            //}
+
+            //var res = ArrayProblems.FindLengthOfLCIS(new int[] { 1,3,4,7,8,8,9,10,12 });
+            //var res = ArrayProblems.MaxAreaOfIsland(new int[,] {
+            //    { 1, 1, 0, 0, 0 }, 
+            //    { 1, 1, 0, 0, 0 }, 
+            //    { 0, 0, 0, 1, 1 }, 
+            //    { 0, 0, 0, 1, 1 }
+            //});
+            //var res = ArrayProblems.FindShortestSubArray(new int[] { 1,2,2,3,1,4 });
+            //var res = ArrayProblems.IsOneBitCharacter(new int[] { 1,0 });
+            //var res = ArrayProblems.PivotIndex(new int[] { -1,-1,-1,0,1,1 });
+            //var res = ArrayProblems.DominantIndex(new int[] { 0,1,2,4,8,0,0 });
+            //var res = ArrayProblems.IsToeplitzMatrix(new int[,] {
+            //    { 18 },
+            //    { 66 }
+            //});
+            //Console.WriteLine("res: " + res);
+
+            //string str1 = "abbxxxxzzy", str2 = "abc", str3 = "abcdddeeeeaabbbcd", str4 = "aaabbbbbaaaaaaacccddddddd";
+            //var res = ArrayProblems.LargeGroupPositions(str4);
+            //for (int i = 0; i < res.Count; i++) {
+            //    for (int j = 0; j < res[i].Count; j++) {
+            //        Console.Write(res[i][j] + " ");
+            //    }
+            //    Console.WriteLine("");
+            //}
+
+            //var res = ArrayProblems.FlipAndInvertImage(new int[][] {
+            //    new int[] { 1,1,0 },
+            //    new int[] { 1,0,1 },
+            //    new int[] { 0,0,0 }
+            //});
+            //for (int i = 0; i < res.Length; i++) {
+            //    for (int j = 0; j < res[0].Length; j++) {
+            //        Console.Write(res[i][j] + " ");
+            //    }
+            //    Console.WriteLine("");
+            //}
+
+            //var res = ArrayProblems.FairCandySwap(new int[] { 2,4 }, new int[] { 1,2,5 });
+            //for (int i = 0; i < res.Length; i++) {
+            //    Console.Write(res[i] + " ");
+            //}
+
+            //var res = ArrayProblems.MinCostClimbingStairs(new int[] { 1, 100, 1, 1, 1, 100, 1, 1, 100, 1 });
+            //var res = ArrayProblems.ThirdMax(new int[] { 1, 2, 3, 4, 5, 6 });   //  {1,2,-2147483648}, {1,2,2,5,3,5}, {1,2,2}, {1,-2147483648,2}, {5,2,2}
+            var res = ArrayProblems.CheckPossibility(new int[] { 2,3,3,2,4 });
             Console.WriteLine("res: " + res);
         }
     }
