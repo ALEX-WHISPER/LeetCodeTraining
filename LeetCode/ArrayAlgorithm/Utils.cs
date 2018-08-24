@@ -60,5 +60,69 @@ namespace LeetCode.ArrayAlgorithm {
             }
             return sum;
         }
+
+        public static bool IsMagicSquare(int[][] grid, int startRowIndex, int startColIndex) {
+            int x = startRowIndex, y = startColIndex;
+            if (grid[x + 1][y + 1] != 5) {
+                return false;
+            }
+
+            //  the value of all elements is between 0~15
+            int[] occup = new int[16];
+            for (int i = x; i <= x + 2; i++) {
+                for (int j = y; j <= y + 2; j++) {
+                    occup[grid[i][j]]++;    //  means the position of whose index number equals to the element value has been occupied
+                }
+            }
+
+            for (int i = 1; i <= 9; i++) {
+                if (occup[i] != 1)  //  means there's no such i or it appears more than once in that subgrid, which resulting that the subgrid is not magic square
+                    return false;
+            }
+
+            /*
+             * # # #
+             * + + +
+             * + + +
+             */
+            if (grid[x][y] + grid[x][y + 1] + grid[x][y + 2] != 15) return false;
+
+            /*
+             * # + +
+             * # + +
+             * # + +
+             */
+            if (grid[x][y] + grid[x+1][y] + grid[x+2][y] != 15) return false;
+
+            /*
+             * # + +
+             * + # +
+             * + + #
+             */
+            if (grid[x][y] + grid[x+1][y+1] + grid[x+2][y+2] != 15) return false;
+
+            /*
+             * + + +
+             * + + +
+             * # # #
+             */
+            if (grid[x + 2][y] + grid[x + 2][y + 1] + grid[x + 2][y + 2] != 15) return false;
+
+            /*
+             * + + #
+             * + + #
+             * + + #
+             */
+             if (grid[x][y+2] + grid[x+1][y+2] + grid[x+2][y+2] != 15) return false;
+
+            /*
+             * + + #
+             * + # +
+             * # + +
+             */
+            if (grid[x][y + 2] + grid[x + 1][y + 1] + grid[x + 2][y] != 15) return false;
+
+            return true;
+        }
     }
 }

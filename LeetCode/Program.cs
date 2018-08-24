@@ -153,7 +153,13 @@ namespace LeetCode {
 
             //var res = ArrayProblems.MinCostClimbingStairs(new int[] { 1, 100, 1, 1, 1, 100, 1, 1, 100, 1 });
             //var res = ArrayProblems.ThirdMax(new int[] { 1, 2, 3, 4, 5, 6 });   //  {1,2,-2147483648}, {1,2,2,5,3,5}, {1,2,2}, {1,-2147483648,2}, {5,2,2}
-            var res = ArrayProblems.CheckPossibility(new int[] { 2,3,3,2,4 });
+            //var res = ArrayProblems.CheckPossibility(new int[] { 2,3,3,2,4 });
+            //var res = ArrayProblems.NumMagicSquaresInside(new int[][] {
+            //    new int[] { 4,3,8,4 },
+            //    new int[] { 9,5,1,9 },
+            //    new int[] { 2,7,6,2 }
+            //});
+            var res = ArrayProblems.FindPairs(new int[] { 1,1,2,2,3,3,4 }, 0);
             Console.WriteLine("res: " + res);
         }
     }

@@ -851,6 +851,50 @@ namespace LeetCode.ArrayAlgorithm {
             return count <= 1;
             #endregion
         }
+
+        /// <summary>
+        /// https://leetcode.com/problems/magic-squares-in-grid/description/
+        /// NOTE: A 3 x 3 magic square is a 3 x 3 grid filled with distinct numbers from 1 to 9 such that each row, column, and both diagonals all have the same sum.
+        /// 设 x 为 magic square 每行(列/对角线)相加的和，y 为矩阵中心位置的值，则有：
+        /// 3x = (1+9)*9/2
+        /// 4x-3y = (1+9)*9/2
+        /// => x = 15, y = 5
+        /// => 矩阵中心位置的值必须为5
+        /// </summary>
+        /// <param name="grid"></param>
+        /// <returns></returns>
+        public static int NumMagicSquaresInside(int[][] grid) {
+            int count = 0;
+            for (int i = 0; i <= grid.Length - 3; i++) {
+                for (int j = 0; j <= grid[0].Length - 3; j++) {
+                    if (Utils.IsMagicSquare(grid, i, j)) count++;
+                }
+            }
+            return count;
+        }
+
+        /// <summary>
+        /// https://leetcode.com/problems/k-diff-pairs-in-an-array/description/
+        /// </summary>
+        /// <param name="nums"></param>
+        /// <param name="k"></param>
+        /// <returns></returns>
+        public static int FindPairs(int[] nums, int k) {
+            Array.Sort(nums);
+
+            int count = 0;
+            for (int i = 0; i < nums.Length; i++) {
+                for (int j = i + 1; j < nums.Length; j++) {
+                    int diff = Math.Abs(nums[i] - nums[j]);
+                    if (diff > k)
+                        break;
+                    else if (diff == k) {
+                        count++;
+                    }
+                }
+            }
+            return count;
+        }
         #endregion
     }
 }
